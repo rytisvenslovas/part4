@@ -63,15 +63,16 @@ const mostLikes = (blog) => {
     console.log(result)
     return result 
 
-
 }
+
+
 
 module.exports = {
     dummy,
     totalLikes,
     favoriteBlog,
     mostBlogs,
-    mostLikes
+    mostLikes,
   }
 
  
