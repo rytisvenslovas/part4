@@ -21,7 +21,7 @@ test('verify id', async()=>{
     const properties = res.body.map(r=>Object.keys(r))
     let count = 0
     for(i=0; i<properties.length; i++ ){
-      if(properties[i][0].toString() === '_id' ){
+      if(properties[i][0].toString() === 'id' ){
         count++
       }
     }
