@@ -34,6 +34,25 @@ test('verifies that the unique identifier property of the blog posts is named id
     });
 })
 
+test('verifies that making an HTTP POST request to the /api/blogs url successfully creates a new blog post', async () => {
+    const newBlogPost = {
+        title: 'new blog post title test',
+        author: 'test author',
+        url: 'test url',
+        likes: 25,
+        id: 'test1213'
+    }
+    
+    await api
+    .post('/api/blogs')
+    .send(newBlogPost)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+const response = await api.get('/api/blogs')
+
+expect(response.body).toHaveLength(length + 1)
+
+})
 
 
 afterAll(()=>{
