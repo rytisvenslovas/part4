@@ -6,34 +6,23 @@ const listHelper = require('../utils/list_helper')
 
 const api = supertest(app)
 
+let length = 0
+const initialiseBlogs = async() => {
+    const blogs = await Blog.find({})
+    length = blogs.length
 
 
+}
+initialiseBlogs()
 
-test('amount of blog posts', async()=>{
-    const res = await api.get('/api/blogs')
+test('returns the correct amount of blog posts in the JSON format', async () => {
+        const response = await api
+        .get('/api/blogs')
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
 
-    expect(res.body).toHaveLength(res.body.length)
-})
 
-
-test('verify id', async()=>{
-    const res = await api.get('/api/blogs')
-    const properties = res.body.map(r=>Object.keys(r))
-    let count = 0
-    for(i=0; i<properties.length; i++ ){
-      if(properties[i][0].toString() === 'id' ){
-        count++
-      }
-    }
-    if(count === properties.length){
-        console.log('all id properties named : id')
-    }else{
-        console.log('not all properties named : id')
-    }
-
-    console.log('count: ', count, "i: ", i , properties.length)
-
-    expect(properties).toHaveLength(count)
+        expect(response.body).toHaveLength(length)
 })
 
 
