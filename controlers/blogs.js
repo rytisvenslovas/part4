@@ -1,5 +1,6 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+const objectId = require('mongodb').ObjectID
 
 
 blogsRouter.get('/', async (req, res)=>{
@@ -23,4 +24,10 @@ blogsRouter.post('/', (req, res, next)=>{
     }).catch(error=>next(error))
 })
 
+blogsRouter.put('/:id', async (req, res , next)=>{
+    await Blog.updateOne({"_id": objectId(req.params.id)},{$set :{"likes": 0}})
+    
+})
+
 module.exports = blogsRouter
+
