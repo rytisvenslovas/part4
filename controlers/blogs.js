@@ -9,19 +9,23 @@ blogsRouter.get('/', async (req, res)=>{
     
 })
 
-blogsRouter.post('/', (req, res, next)=>{
+blogsRouter.post('/', async  (req, res, next)=>{
     const body = req.body
-
-    const blog = new Blog({
-        title:body.title,
-        author:body.author,
-        url:body.url,
-        likes:body.likes
-    })
-
-    blog.save().then(savedBlog=>{
-        res.json(savedBlog.toJSON())
-    }).catch(error=>next(error))
+    if(!body.title || !body.url){
+        return  res.status(400).json(console.log('title or url is missing'))
+    }else {
+        const blog = new Blog({
+            title:body.title,
+            author:body.author,
+            url:body.url,
+            likes:body.likes
+        })
+    
+       await blog.save().then(savedBlog=>{
+            res.json(savedBlog.toJSON())
+        }).catch(error=>next(error))
+    }
+    
 })
 
 blogsRouter.put('/:id', async (req, res , next)=>{

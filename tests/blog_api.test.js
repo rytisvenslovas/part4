@@ -56,10 +56,7 @@ expect(response.body).toHaveLength(length + 1)
 })
 
 
-test('swx', async () => {
-    const updatedPost = {
-        likes: 0
-    }
+test('verifies that if the likes property is missing from the request', async () => {
     
     const response = await api.get('/api/blogs')
     .expect(200)
@@ -77,6 +74,21 @@ test('swx', async () => {
     });
     const blogs = await Blog.find({})
     
+})
+
+
+test('verifies that if the title and url properties are missing from the request data, the backend responds to the request with the status code 400 Bad Request', async ()=>{
+    const newBlogPost = {
+        author: 'test author',
+        likes: 25,
+        id: 'test1213'
+    }
+    
+    await api
+    .post('/api/blogs')
+    .send(newBlogPost)
+    .expect(200)
+
 })
 
 afterAll(()=>{
