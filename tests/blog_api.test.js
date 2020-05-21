@@ -1,9 +1,8 @@
 const mongoose = require('mongoose')
-const objectId = require('mongoose').ObjectID
 const supertest = require('supertest')
 const app = require('../app')
 const Blog = require('../models/blog')
-const listHelper = require('../utils/list_helper')
+
 
 const api = supertest(app)
 
@@ -67,7 +66,7 @@ test('verifies that if the likes property is missing from the request', async ()
             
             }else{
                 console.log(element.title, 'DOES NOT HAVE property likes', element.id , ' updating...')
-                await api.put(`/api/blogs/${element.id}`)
+                await api.post(`/api/blogs/${element.id}`)
                
                
             }
@@ -75,7 +74,6 @@ test('verifies that if the likes property is missing from the request', async ()
     const blogs = await Blog.find({})
     
 })
-
 
 test('verifies that if the title and url properties are missing from the request data, the backend responds to the request with the status code 400 Bad Request', async ()=>{
     const newBlogPost = {
