@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const objectId = require('mongoose').objectID
+const objectId = require('mongoose').ObjectID
 const supertest = require('supertest')
 const app = require('../app')
 const Blog = require('../models/blog')
@@ -87,7 +87,7 @@ test('verifies that if the title and url properties are missing from the request
     await api
     .post('/api/blogs')
     .send(newBlogPost)
-    .expect(200)
+    .expect(400)
 
 })
 

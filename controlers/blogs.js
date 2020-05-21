@@ -30,8 +30,18 @@ blogsRouter.post('/', async  (req, res, next)=>{
 
 blogsRouter.put('/:id', async (req, res , next)=>{
     await Blog.updateOne({"_id": objectId(req.params.id)},{$set :{"likes": 0}})
+    console.log(req.body.title, 'was updated')
     
 })
+
+
+blogsRouter.delete('/:id', async (req, res , next )=>{
+    await Blog.deleteOne({"_id": objectId(req.params.id)})
+    console.log(req.body.title, 'was deleted')
+    res.send(204).end()
+})
+
+
 
 module.exports = blogsRouter
 

@@ -1,9 +1,10 @@
-POST http://localhost:3003/api/blogs/
+Delete http://localhost:3003/api/blogs/5ebc00e52b96791a10719aba
 Content-Type: application/json
 
 {
-    "title": "kaimas",
-    "author": "mantasvaltakinisr",
-    "url": "www.google.com" 
+    "title": "test",
+    "author": "author",
+    "url": "www.google.com",
+    "likes": 88
 }
 
