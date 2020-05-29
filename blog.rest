@@ -1,9 +1,8 @@
-POST http://localhost:3003/api/blogs/
+POST http://localhost:3003/api/users/
 Content-Type: application/json
 
 {
-    "title": "test",
-    "author": "author",
-    "url": "www.google.com"
+    "username":"5",
+    "name": "r",
+    "password": "12"
 }
-

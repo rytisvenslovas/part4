@@ -92,7 +92,7 @@ test('verifies that if the title and url properties are missing from the request
 })
 
 
-test('swx',async ()=> {
+test('way to create new users by doing a HTTP POST-request to address api/users',async ()=> {
     const newUser = {
         username: 'test',
         name: 'testname',
@@ -104,6 +104,20 @@ test('swx',async ()=> {
     .expect(200)
     .expect('Content-Type', /application\/json/)
 
+})
+
+
+test('swx', async ()=>{
+    const newUser = {
+        username: 't',
+        name: 'tesst',
+        password: 't'
+    }
+    await api
+    .post('/api/users')
+    .send(newUser)
+    .expect(400)
+    
 })
 
 afterAll(()=>{
