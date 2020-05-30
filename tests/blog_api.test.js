@@ -107,7 +107,7 @@ test('way to create new users by doing a HTTP POST-request to address api/users'
 })
 
 
-test('swx', async ()=>{
+test('check that invalid users are not created and invalid add user operation returns a suitable status code and error message', async ()=>{
     const newUser = {
         username: 't',
         name: 'tesst',

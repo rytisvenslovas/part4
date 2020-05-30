@@ -1,16 +1,18 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const objectId = require('mongodb').ObjectID
 
 
 blogsRouter.get('/', async (req, res)=>{
-    const blogs = await Blog.find({})
+    const blogs = await Blog.find({}).populate('user', {username:1,name:1})
     res.json(blogs.map(blog=>blog.toJSON()))
     
 })
 
 blogsRouter.post('/', async  (req, res, next)=>{
     const body = req.body
+    const user = await User.findById(body.userId)
     if(!body.title || !body.url){
         return  res.status(400).json(console.log('title or url is missing'))
     }else {
@@ -18,15 +20,17 @@ blogsRouter.post('/', async  (req, res, next)=>{
             title:body.title,
             author:body.author,
             url:body.url,
-            likes:body.likes
+            likes:body.likes,
+            user: user._id
         })
-    
-       await blog.save().then(savedBlog=>{
-            res.json(savedBlog.toJSON())
-        }).catch(error=>next(error))
-    }
-    
+    const savedBlog = await blog.save()
+    user.blogs = user.blogs.concat(savedBlog._id)
+    await user.save()
+    res.json(savedBlog.toJSON())
+       
+    }  
 })
+
 
 blogsRouter.post('/:id', async (req, res , next)=>{
     await Blog.updateOne({"_id": objectId(req.params.id)},{$set :{"likes": 0}})
@@ -52,4 +56,3 @@ blogsRouter.post('/api/users', async (req , res , next)=> {
 
 
 module.exports = blogsRouter
-

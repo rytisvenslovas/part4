@@ -4,7 +4,7 @@ const User = require('../models/user')
 const objectId = require('mongodb').ObjectID
 
 usersRouter.get('/', async (req , res )=> {
-    const users = await User.find({})
+    const users = await User.find({}).populate('blogs',{url:1,title:1,author:1})
     res.json(users.map(user=> user.toJSON()))
 })
 
@@ -17,7 +17,7 @@ usersRouter.post('/', async (req, res) => {
         const user = new User ({
             username: body.username,
             name: body.name,
-            passwordHash
+            passwordHash,
         })
         const savedUser = await user.save()
         res.json(savedUser)
