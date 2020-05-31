@@ -1,7 +1,10 @@
-POST http://localhost:3003/api/login
+POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbnNsaXMiLCJpZCI6IjVlZDNjY2JlMjMzOTk1MzU5MDNhNThiNiIsImlhdCI6MTU5MDk0NTM4NX0.Qa6vbLYwJTLRZpYGJFWRHG5bDW9qAUEqn2FWd_jX-gU
 
 {
-    "username":"venslis",
-    "password": "1234"
+    "title": "paejo ar ne ?",
+    "author": "venslis",
+    "url": "www.goog123123123le.com",
+    "userId": "5ed3ccbe23399535903a58b6"
 }
