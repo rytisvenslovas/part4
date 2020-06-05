@@ -36,7 +36,8 @@ test('verifies that the unique identifier property of the blog posts is named id
     });
 })
 
-test('verifies that making an HTTP POST request to the /api/blogs url successfully creates a new blog post', async () => {
+test('creates new blog', async () => {
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbnNsaXMiLCJpZCI6IjVlZDNjY2JlMjMzOTk1MzU5MDNhNThiNiIsImlhdCI6MTU5MDk0NTM4NX0.Qa6vbLYwJTLRZpYGJFWRHG5bDW9qAUEqn2FWd_jX-gU'
     const newBlogPost = {
         title: 'new blog post title test',
         author: 'test author',
@@ -48,6 +49,7 @@ test('verifies that making an HTTP POST request to the /api/blogs url successful
     await api
     .post('/api/blogs')
     .send(newBlogPost)
+    .set( 'Authorization', `bearer ${token}` )
     .expect(200)
     .expect('Content-Type', /application\/json/)
 const response = await api.get('/api/blogs')
@@ -78,6 +80,7 @@ test('verifies that if the likes property is missing from the request', async ()
 })
 
 test('verifies that if the title and url properties are missing from the request data, the backend responds to the request with the status code 400 Bad Request', async ()=>{
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZlbnNsaXMiLCJpZCI6IjVlZDNjY2JlMjMzOTk1MzU5MDNhNThiNiIsImlhdCI6MTU5MDk0NTM4NX0.Qa6vbLYwJTLRZpYGJFWRHG5bDW9qAUEqn2FWd_jX-gU'
     const newBlogPost = {
         author: 'test author',
         likes: 25,
@@ -87,6 +90,7 @@ test('verifies that if the title and url properties are missing from the request
     await api
     .post('/api/blogs')
     .send(newBlogPost)
+    .set( 'Authorization', `bearer ${token}` )
     .expect(400)
 
 })
